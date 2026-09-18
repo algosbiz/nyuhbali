@@ -181,18 +181,33 @@ export function TreatmentList({
                       ))}
                     </ul>
 
+                    {/* One item per row on a phone, packed inline from `sm`.
+                        Wrapping these freely at 335px produced a ragged
+                        1/1/2/2/1 zigzag — the long steps ("Full Body Lymphatic
+                        Drainage Massage") take a row to themselves and leave
+                        the short ones pairing up behind them, so no two gold
+                        dashes line up. A column reads as the list of steps it
+                        is, and it is the same treatment `PackageList` already
+                        gives its benefits list: one column on a phone, several
+                        across from `sm`. Above `sm` the run still packs 3–4 to
+                        a row and fills the column, so the inline flow is kept
+                        there. The dash is top-aligned rather than centred
+                        because several steps are long enough to wrap ("Healthy
+                        Green Juice (spinach, pineapple, apple, cucumber)"), and
+                        a centred dash on a two-line item floats between the
+                        lines. */}
                     {treatment.includes?.length ? (
-                      <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+                      <ul className="mt-3 flex flex-col gap-y-1 sm:flex-row sm:flex-wrap sm:gap-x-4">
                         {treatment.includes.map((step) => (
                           <li
                             key={step}
-                            className="flex items-center gap-2 text-[13px] font-light text-text"
+                            className="flex gap-2 text-[13px] leading-relaxed font-light text-text"
                           >
                             <span
                               aria-hidden
-                              className="block h-px w-2 shrink-0 bg-primary"
+                              className="mt-2.5 block h-px w-2 shrink-0 bg-primary"
                             />
-                            {step}
+                            <span>{step}</span>
                           </li>
                         ))}
                       </ul>
