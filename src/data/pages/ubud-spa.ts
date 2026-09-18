@@ -35,20 +35,25 @@ export const TREATMENTS: TreatmentCategory[] = [
     image: `${UPLOADS}/2024/11/011A0972-Edit-min-1.jpg`,
     treatments: [
       {
-        name: "Bamboo Drainage Massage",
+        name: "Bamboo Harmony Massage",
         options: [at("90 mins | IDR 850.000++")],
         description:
           "In the Eastern world, bamboo is a symbol of longevity because of its strength, flexibility, & resilience. Bamboo massage is known for its restorative properties to stimulate the flow of blood and lymph and relieve muscle tension. A combination of deep tissue therapy, manual drainage massage, and long flowing massage strokes and rolling with bamboo sticks combines in our signature massage to soothe the senses and promote the well-being.",
       },
       {
         name: "Lymphatic Drainage Massage",
-        options: [at("60 mins | IDR 650.000++"), at("90 mins | IDR 790.000++")],
+        options: [
+          at("Arm & Upper Back| IDR 490.000++"),
+          at("Full Leg 45 mins| IDR 650.000++"),
+          at("Belly 45 mins| IDR 650.000++"),
+          at("Full Body 120 mins| IDR 1.590.000++"),
+        ],
         description:
           "This massage technique is designed to encourage the movement of lymph fluid. By stimulating circulation through a rhythmic motion in the direction of the lymphatic flow, it will enhance the elimination of toxins, alleviate water retention, and relieve bloating.",
       },
       {
         name: "Mahamaya Herbal Massage",
-        options: [at("90 mins | IDR 750.000++")],
+        options: [at("90 mins | IDR 850.000++")],
         description:
           "Inspired by the herbal that has long been used by Balinese People, the warm herbal compress invites your muscle to relax. The warm mixture of the herbs in the relaxing massage flow helps to reduce aches and gives an ultimate boost to your well-being.",
       },
@@ -120,19 +125,19 @@ export const TREATMENTS: TreatmentCategory[] = [
       },
       {
         name: "Boreh Herbal Ritual",
-        options: [at("30 mins | IDR 290.000++")],
+        options: [at("30 mins | IDR 350.000++")],
         description:
           "Boreh has been used for centuries by Balinese farmers to warm the body and relieve fatigue. A blend of ginger, cinnamon, cloves, and sandalwood is applied to the skin and gently massaged into your body. This is a perfect treatment if you experience jet lag or need a boost. Enjoy a heavenly scalp massage while your body is polished in the body wrap",
       },
       {
         name: "Purifying Coconut Body Mask",
-        options: [at("30 mins | IDR 290.000++")],
+        options: [at("30 mins | IDR 350.000++")],
         description:
           "Widely known as the essential part of Balinese wellness, the coconut mask gives your skin the benefit of antioxidants to destress along moisturize it. Enjoy a heavenly scalp massage while your body is polished in the body wrap.",
       },
       {
         name: "Hydrating Milk Body Polish",
-        options: [at("30 mins | IDR 290.000++")],
+        options: [at("30 mins | IDR 350.000++")],
         description:
           "Milk body polish softens and rejuvenates the skin with mild exfoliating properties to eliminate dead skin cells. Enjoy a heavenly scalp massage while your body is polished in the body wrap.",
       },
@@ -143,6 +148,12 @@ export const TREATMENTS: TreatmentCategory[] = [
     image: `${UPLOADS}/2023/03/spa-ubud-hair-therapy.jpg`,
     treatments: [
       {
+        name: "Amaya Scalp Ritual",
+        options: [at("90 mins | IDR 950.000++")],
+        description:
+          "A soothing and immersive ritual combining a scalp-purifying serum, gentle scalp massage, Gua Sha, facial acupressure, and a relaxing warm-water hair ritual. Designed to refresh and rebalance the scalp while releasing tension from the scalp, neck, and shoulders. Completed with a nourishing hair treatment, leaving the scalp refreshed and the hair soft, smooth, and beautifully conditioned. ",
+      },
+      {
         name: "Mahamaya Shirodara Treatment",
         options: [at("90 mins | IDR 850.000++")],
         description:
@@ -150,21 +161,15 @@ export const TREATMENTS: TreatmentCategory[] = [
       },
       {
         name: "Intensive Hair SPA",
-        options: [at("75 mins | IDR 550.000++")],
+        options: [at("75 mins | IDR 590.000++")],
         description:
           "An intensive fragrant treatment to revitalize the hair utilizing the legendary aloe vera extract, a well-known ingredient that helps prevent hair loss by strengthening the roots. Spoil yourself even more with the scalp massage that is designed to enhance nutrient’s penetration and the mahamaya classic massage that target muscle soreness in the neck and shoulder",
       },
       {
         name: "Authentic Hair Crème Bath",
-        options: [at("75 mins | IDR 550.000++")],
+        options: [at("75 mins | IDR 590.000++")],
         description:
           "The secret of the Indonesian beauty ritual that uses extracts blends of strawberry and yogurt containing Vitamin C and amino acids act to nourish and revive dry, damaged hair and leave hair smelling fresh and divine. A gentle head massage promotes scalp circulation and gloss, while the neck and shoulder massage boost your overall well-being.",
-      },
-      {
-        name: "Hair Wash with Vitamin",
-        options: [at("30 mins | IDR 350.000++")],
-        description:
-          "Say goodbye to bad hair days . Our express treatment is designed to cleanse your scalp and nourish your hair, leaving it refreshed and revitalized. To complete the experience, we finish with a nourishing vitamin treatment, a revitalizing hair tonic",
       },
     ],
   },
@@ -203,6 +208,21 @@ export const TREATMENTS: TreatmentCategory[] = [
     image: `${UPLOADS}/2024/11/011A0857-Edit-min.jpg`,
     treatments: [
       {
+        name: "Mahamaya Lymphatic Reset",
+        options: [at("210 mins | IDR 2.490.000++")],
+        includes: [
+          "Foot Ritual",
+          "Full Body Lymphatic Drainage Massage",
+          "Infrared Thermal Blanket",
+          "Body Scrub",
+          "Body Mask",
+          "Spirit Cleansing Bath",
+          "Organic Coconut Drink",
+        ],
+        description:
+          "A revitalizing full-body ritual designed to leave you feeling lighter and renewed. The lymphatic drainage massage encourages lymphatic flow, supports circulation, and helps relieve the feeling of water retention while supporting the body’s natural waste-clearing processes. Completed with an infrared blanket sauna, body scrub,  nourishing body mask, Spirit Cleansing Bath, and refreshing organic coconut water.",
+      },
+      {
         name: "Holistic Cellulite Therapy by Tegoder",
         options: [at("150 mins | IDR 1.990.000++")],
         includes: [
@@ -231,7 +251,7 @@ export const TREATMENTS: TreatmentCategory[] = [
       },
       {
         name: "Signature Nyuh (Coconut) Sensation",
-        options: [at("180 mins | IDR 1.290.000++")],
+        options: [at("180 mins | IDR 1.390.000++")],
         includes: [
           "Balinese Massage",
           "Coconut Body Scrub",
@@ -242,6 +262,18 @@ export const TREATMENTS: TreatmentCategory[] = [
         ],
         description:
           "Connecting you with the vital element of Balinese wellness, this holistic package will begin with a relaxing Balinese massage, followed by a coconut body scrub and coconut body wrap. Last, complete the journey with a skin nourishing session with an island frangipani milk bath made from pure coconut milk to refresh your body. From head to toe, you will feel rejuvenated and revitalized.",
+      },
+      {
+        name: "Ayurvedic Healing Journey",
+        options: [at("150 mins | IDR 1.350.000++")],
+        includes: [
+          "Deep tissue massage",
+          "Shirodara",
+          "Hair Mask",
+          "Antioxidant Elixir",
+        ],
+        description:
+          "This ritual combines Ayurvedic wisdom and Balinese wellness for total rejuvenation. Begin with a Deep Tissue Massage to release muscle tension, followed by Shirodhara, where warm oil flows gently over the forehead to promote calm and balance. Finish with a revitalizing Hair Mask for nourished, refreshed hair. A harmonious journey for the mind, body, and spirit, leaving you deeply relaxed and renewed.",
       },
       {
         name: "Blissful Mahamaya Journey",
@@ -329,7 +361,17 @@ export const TREATMENTS: TreatmentCategory[] = [
         name: "Ageless Radiance Facial",
         options: [at("90 mins | IDR 1.490.000")],
         includes: [
-          "Deep Cleansing – Radiofrequency – Steam & Extraction – Face Massage - Soft Peeling - PDT - Stem Cell Mask - Brightening Eye Mask - Shoulder Massage – Eye & Lip Care – Moisturizer & Sunscreen",
+          "Deep Cleansing",
+          "Radiofrequency",
+          "Steam & Extraction",
+          "Face Massage",
+          "Soft Peeling",
+          "PDT",
+          "Stem Cell Mask",
+          "Brightening Eye Mask",
+          "Shoulder Massage",
+          "Eye & Lip Care",
+          "Moisturizer & Sunscreen",
         ],
         description:
           "This luxurious facial combines advanced technologies like radiofrequency, PDT, and a stem cell mask to tighten and rejuvenate your skin. The treatment begins with deep cleansing and exfoliation to remove impurities, followed by targeted therapies designed to firm and restore your skin’s natural radiance. Steam and extractions clear your pores, while a relaxing face massage promotes circulation. Enjoy a regenerating stem cell mask, brightening eye mask, and soothing shoulder massage. The session finishes with hydrating eye and lip care, followed by moisturizing and sun protection, leaving your skin feeling revitalized and glowing.",
@@ -338,7 +380,17 @@ export const TREATMENTS: TreatmentCategory[] = [
         name: "Collagen Booster Facial by Dermalogica",
         options: [at("90 mins | IDR 1.290.000")],
         includes: [
-          "Deep Cleansing – Microfoliant – Steam & Extraction – Face Massage with Roller - Soft Peeling - IPL Rejuvenation – Premium Gold Mask – Shoulder Massage – Serum Infusion with Electroporation – Eye & Lip Care – Moisturizer & Sunscreen",
+          "Deep Cleansing",
+          "Microfoliant",
+          "Steam & Extraction",
+          "Face Massage with Roller",
+          "Soft Peeling",
+          "IPL Rejuvenation",
+          "Premium Gold Mask",
+          "Shoulder Massage",
+          "Serum Infusion with Electroporation",
+          "Eye & Lip Care",
+          "Moisturizer & Sunscreen",
         ],
         description:
           "A new start for smoother skin. A combination of micro exfoliant and soft peeling intensively works to remove skin debris and purify the skin surface. Intense pulse light therapy is then applied to your skin to target the deeper layer of the skin to revitalize skin cells and boost collagen renewal. Prepare to be pampered with a rejuvenating gold mask and heavenly shoulder massage. The whole experience will leave your skin with a plumper texture and replenished appearance.",
@@ -347,7 +399,16 @@ export const TREATMENTS: TreatmentCategory[] = [
         name: "Firming & Resurfacing Facial by Dermalogica",
         options: [at("90 mins | IDR 1.190.000")],
         includes: [
-          "Deep Cleansing – Radiofrequency – Diamond Microdermabrasion - Steam & Extraction - High Frequency - Face Massage with Guasha - Recovery Mask - Serum Infusion - Eye & Lip Care – Moisturizer & Sunscreen",
+          "Deep Cleansing",
+          "Radiofrequency",
+          "Diamond Microdermabrasion",
+          "Steam & Extraction",
+          "High Frequency",
+          "Face Massage with Guasha",
+          "Recovery Mask",
+          "Serum Infusion",
+          "Eye & Lip Care",
+          "Moisturizer & Sunscreen",
         ],
         description:
           "Discover the power of restructuring and tightening experience in this to restore vitality and refresh your overall appearance. After double cleansing, radiofrequency is introduced to generate heat to stimulate the production of collagen and elastin as nonsurgical face-firming therapy. Dimond microdermabrasion and manual extraction will follow the journey to exfoliate dead skin, unclog the congested pores, and reveal smoother skin. The treatment concludes with a massage and mask to regenerate natural collagen for for more youthful look.",
@@ -356,7 +417,22 @@ export const TREATMENTS: TreatmentCategory[] = [
         name: "Red Carpet Hydra Glow",
         options: [at("90 mins | IDR 1.290.000")],
         includes: [
-          "Deep Cleansing – Enzyme Peeling - Soft Peeling & Steam - Hydra Peeling - Extraction - Face Massage – Tightening Stimulation - Premium Alga Mask – Eye Mask - Shoulder Massage - Hydrating Infusion - Stem Cell Mask - Hand Massage - Serum Infusion - Eye & Lip Care – Moisturizer & Sunscreen",
+          "Deep Cleansing",
+          "Enzyme Peeling",
+          "Soft Peeling & Steam",
+          "Hydra Peeling",
+          "Extraction",
+          "Face Massage",
+          "Tightening Stimulation",
+          "Premium Alga Mask",
+          "Eye Mask",
+          "Shoulder Massage",
+          "Hydrating Infusion",
+          "Stem Cell Mask",
+          "Hand Massage",
+          "Serum Infusion",
+          "Eye & Lip Care",
+          "Moisturizer & Sunscreen",
         ],
         description:
           "Cleanse, brighten, and tighten. Discover red carpet-worthy radiance and refined pores with this non-invasive facial treatment. Your skin is gently resurfaced using Hydra Glow combining deep cleansing, vacuum extraction, and serum infusion. Experience tightening skin with electroporation, tightening stimulation, and an FDA-approved tightening mask to enhance skin elasticity and firm your overall look.",
@@ -365,7 +441,19 @@ export const TREATMENTS: TreatmentCategory[] = [
         name: "Hydra Glow Facial",
         options: [at("75 mins | IDR 850.000")],
         includes: [
-          "Deep Cleansing – Enzyme Peeling - Soft Peeling & Steam - Hydra Peeling - Extraction - Face Massage – Tightening Stimulation - Mask – Shoulder Massage - Hydrating Infusion - Serum Infusion — Eye & Lip Care – Moisturizer & Sunscreen",
+          "Deep Cleansing",
+          "Enzyme Peeling",
+          "Soft Peeling & Steam",
+          "Hydra Peeling",
+          "Extraction",
+          "Face Massage",
+          "Tightening Stimulation",
+          "Mask",
+          "Shoulder Massage",
+          "Hydrating Infusion",
+          "Serum Infusion",
+          "Eye & Lip Care",
+          "Moisturizer & Sunscreen",
         ],
         description:
           "This indulgent treatment is designed to deeply clean your skin while pumping the skin with nutrients to reveal smooth and brighten skin. Hydra vacuum technology helps to remove impurities with no downtime. It includes removal of comedones & treat of congestion. Electroporation and tightening stimulation follow to tone the skin. Your skin-reviving experience includes a personalized mask and a relaxing massage. The skin is then infused with a powerful blend of antioxidants and vitamins to maximize the brightening effect for more luminous skin.",
@@ -374,7 +462,16 @@ export const TREATMENTS: TreatmentCategory[] = [
         name: "Glow and Go Facial",
         options: [at("45 mins | IDR 590.000")],
         includes: [
-          "Deep Cleansing – Soft Peeling – Hydra Peeling – Face Massage - Tightening Stimulation - Mask - Shoulder Massage - Hydrating Infusion - Eye & Lip Care – Moisturizer & Sunscreen",
+          "Deep Cleansing",
+          "Soft Peeling",
+          "Hydra Peeling",
+          "Face Massage",
+          "Tightening Stimulation",
+          "Mask",
+          "Shoulder Massage",
+          "Hydrating Infusion",
+          "Eye & Lip Care",
+          "Moisturizer & Sunscreen",
         ],
         description:
           "A rapid repair solution to restore your skin glow. This treatment features two steps of hydra dermabrasion to exfoliate gently while hydrating your skin. Electroporation and tightening stimulation follow to tone the skin. Your skin-reviving experience includes a personalized mask and a relaxing massage. The treatment concludes with serum infusion packed with powerful actives, leaving the skin looking refreshed & more radiant.",
@@ -383,7 +480,15 @@ export const TREATMENTS: TreatmentCategory[] = [
         name: "Triple Action Acne Care by Dermalogica",
         options: [at("90 mins | IDR 1.290.000")],
         includes: [
-          "Deep Cleansing – Steam & Extraction – IPL Acne - Natural Peeling – Mask – Shoulder Massage – Serum Infusion with Ultrasound – Eye & Lip Care – Moisturizer & Sunscreen",
+          "Deep Cleansing",
+          "Steam & Extraction",
+          "IPL Acne",
+          "Natural Peeling",
+          "Mask",
+          "Shoulder Massage",
+          "Serum Infusion with Ultrasound",
+          "Eye & Lip Care",
+          "Moisturizer & Sunscreen",
         ],
         description:
           "Designed specifically for acne-prone skin, this treatment involves deep cleansing, hygienic extraction with natural anti-bacterial extracts, and high frequency to prevent further inflammation. It also includes Intense Pulse Light therapy that effectively destroys the P. acnes bacteria, treats inflammatory acne and inhibits sebaceous oil glands. Natural soft peeling is then applied to unblock the clogged pores and relieve congestion. We round off with our tea tree mask and special serum to clarify the skin.",
@@ -392,7 +497,14 @@ export const TREATMENTS: TreatmentCategory[] = [
         name: "Acne & Blemish Facial by Dermalogica",
         options: [at("75 mins | IDR 850.000")],
         includes: [
-          "Deep Cleansing - Steam & Extraction – Natural Peeling - Mask – Shoulder Massage - Serum Infusion with Ultrasound – Eye & Lip Care – Moisturizer & Sunscreen",
+          "Deep Cleansing",
+          "Steam & Extraction",
+          "Natural Peeling",
+          "Mask",
+          "Shoulder Massage",
+          "Serum Infusion with Ultrasound",
+          "Eye & Lip Care",
+          "Moisturizer & Sunscreen",
         ],
         description:
           "Deep cleansing facial to banish blemishes and balance oil production by removing the debris that builds up in pores. The extraction is done using an advanced formula made from anti-bacterial botanical extracts with high frequency to minimize inflammation and break out. It features a soft peeling to treat congested pores & decrease sebum. The treatment concludes with a tea tree mask and dedicated serum for acne-prone skin, leaving your skin feeling invigorated and thoroughly cleansed.",
@@ -401,7 +513,16 @@ export const TREATMENTS: TreatmentCategory[] = [
         name: "Luminous Facial",
         options: [at("75 mins | IDR 850.000")],
         includes: [
-          "Deep Cleansing – Microfoliant – Steam & Extraction – Face Massage with Guasha - Soft Peeling - Serum Infusion with Electroporation - Peptide Sheet Mask with PDT – Shoulder Massage – Eye & Lip Care – Moisturizer & Sunscreen",
+          "Deep Cleansing",
+          "Microfoliant",
+          "Steam & Extraction",
+          "Face Massage with Guasha",
+          "Soft Peeling",
+          "Serum Infusion with Electroporation",
+          "Peptide Sheet Mask with PDT",
+          "Shoulder Massage",
+          "Eye & Lip Care",
+          "Moisturizer & Sunscreen",
         ],
         description:
           "Treat your skin to a refreshing boost with our Luminous Facial to cleanse and refresh. The treatment begins with a deep cleanse and microfoliant exfoliation to refine the complexion. Steam and extractions help remove impurities, followed by a relaxing guasha face massage to improve circulation. Soft peeling gently exfoliates, and a serum infusion with electroporation enhances hydration. A peptide sheet mask with PDT adds radiance, while a soothing shoulder massage and moisturizing care finish the treatment.",
@@ -410,7 +531,18 @@ export const TREATMENTS: TreatmentCategory[] = [
         name: "Calming Oxygen Facial",
         options: [at("75 mins | IDR 850.000")],
         includes: [
-          "Deep Cleansing - Jet Peel - Soft Peeling - Steam & Extraction – Face Massage with Roller – Calming Mask – Shoulder Massage – Oxygen Spray - Sheet Mask with PDT - Caviar Serum Infusion with Electroporation - Eye & Lip Care – Moisturizer & Sunscreen",
+          "Deep Cleansing",
+          "Jet Peel",
+          "Soft Peeling",
+          "Steam & Extraction",
+          "Face Massage with Roller",
+          "Calming Mask",
+          "Shoulder Massage",
+          "Oxygen Spray",
+          "Sheet Mask with PDT",
+          "Caviar Serum Infusion with Electroporation",
+          "Eye & Lip Care",
+          "Moisturizer & Sunscreen",
         ],
         description:
           "A best friend for sensitive, this oxygen facial effectively quenches dehydrated, travel-weary, or sun-damaged skin. After deep cleansing, your skin will be exfoliated to remove the dead skin. Essential nutrients are infused to promote hydration following skin oxygenation to stimulate blood flow and encourage healthy production of newer skin cells. The session ends with double face mask and PDT light therapy to soothe and calm the sensitive skin.",
@@ -418,13 +550,31 @@ export const TREATMENTS: TreatmentCategory[] = [
       {
         name: "Bootylicious",
         options: [at("75 mins | IDR 1.050.000")],
-        includes: ["Deep Cleansing with Oxygeneo – Jet Peel - Steam & Extraction - Soft Peel- ing – Booty Mask – Firming Body Serum with Ultrasound—Radiofrequency - Firming Body Cream with Booty Massage"],
+        includes: [
+          "Deep Cleansing with Oxygeneo",
+          "Jet Peel",
+          "Steam & Extraction",
+          "Soft Peeling",
+          "Booty Mask",
+          "Firming Body Serum with Ultrasound",
+          "Radiofrequency",
+          "Firming Body Cream with Booty Massage",
+        ],
         description: "Wear your bikini worry-free. Our bootylicious facial comes with everything to treat your booty the love it deserves. This treatment involves deep cleanse, radiofrequency, extraction, booty massage, soft peeling, soothing hydro jelly mask, and firming body",
       },
       {
         name: "Backne Care",
         options: [at("75 mins | IDR 1.290.000")],
-        includes: ["Cleansing – Steam & Extraction – High Frequency - Soft Peeling – LED - Peel Off Mask – Se- rum Infusion with Ultrasound - Oil-Free Acne Moisturizer"],
+        includes: [
+          "Cleansing",
+          "Steam & Extraction",
+          "High Frequency",
+          "Soft Peeling",
+          "LED",
+          "Peel Off Mask",
+          "Serum Infusion with Ultrasound",
+          "Oil-Free Acne Moisturizer",
+        ],
         description: "Calming and acne-preventing treatment that helps you to smooth and resurface your back. Our back acne treatment involves deep cleansing, extraction, and soft peels to exfoliate the dead skin gently and unclog the pores. Blue light therapy is also used to treat inflammation and accelerate the healing process. The treatment finished calming hydro mask and serum infusion. Get ready to rock and shine with your backless dress.",
       },
     ],
