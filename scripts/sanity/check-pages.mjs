@@ -16,14 +16,16 @@
  * - **A document is unpublished.** This is the one that bites. `getRooms`,
  *   `getExperiences` and `getPostPaths` return Sanity's list *instead of*
  *   `src/data`'s once Sanity has anything at all — they do not merge — and
- *   those routes are catch-alls with `dynamicParams = false`, so
- *   `generateStaticParams` is authoritative. Unpublish one room of ten and
- *   its URL 404s at the edge until the next deploy, with nothing else
- *   changing. That is correct behaviour for a deletion and a silent outage
- *   for an accident, which is why it is worth checking rather than trusting.
- * - **A page document is created at a path no route serves.** It appears in
- *   the Studio, publishes cleanly, and 404s — again because of
- *   `dynamicParams = false`. See README-SANITY.md §8.
+ *   those routes take their whole list from Sanity. Unpublish one room of ten
+ *   and its URL 404s, with nothing else changing. That is correct behaviour
+ *   for a deletion and a silent outage for an accident, which is why it is
+ *   worth checking rather than trusting. Since the catch-alls went
+ *   `dynamicParams = true` this is immediate rather than deferred to the next
+ *   deploy — which makes an accident faster to notice and no less silent.
+ * - **A post is published under a prefix no route file covers.** It appears
+ *   in the Studio, publishes cleanly, and 404s: the root catch-all answers
+ *   `page` documents, not posts. A *page* at a new path does now resolve.
+ *   See README-SANITY.md §8.
  * - **The sitemap drifts** from what is served, in either direction.
  *
  * The `src/data` comparison is the one that catches an accidental unpublish:

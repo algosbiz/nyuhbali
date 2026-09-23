@@ -26,6 +26,7 @@ import { DirectBookingDeals } from "@/components/property/DirectBookingDeals";
 import { PropertyHero } from "@/components/property/PropertyHero";
 import { ExperienceDetailBody } from "@/components/property/ExperienceDetail";
 import { AwardsRow } from "@/components/property/AwardsRow";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { getExperience, getPropertySite, getSiteLabels } from "@/sanity/lib/content";
 import { resolvePageMetadata } from "@/sanity/lib/metadata";
 
@@ -46,6 +47,7 @@ export default async function UbudFitnessPage() {
     <>
       <PropertyHeader site={site} activeHref="/ubud/wellness" />
       <main>
+        <BreadcrumbJsonLd path={`/ubud/${item.slug}`} name={item.title} />
         <PropertyHero
           images={[item.hero]}
           alt={item.title}

@@ -4,6 +4,7 @@ import { PropertyFooter } from "@/components/property/PropertyFooter";
 import { LegalSection } from "@/components/legal/LegalSection";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { getLegalPage, getPropertySite } from "@/sanity/lib/content";
 import { resolvePageMetadata } from "@/sanity/lib/metadata";
 
@@ -35,6 +36,7 @@ export default async function TermsConditionsPage() {
     <>
       <PropertyHeader site={site} activeHref="/terms-conditions" />
       <main>
+        <BreadcrumbJsonLd path="/terms-conditions" />
         <Section tone="sand" space="loose" width="narrow">
           <SectionHeading title="Terms & Conditions" as="h1" size="display" />
 

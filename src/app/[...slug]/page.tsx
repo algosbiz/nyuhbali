@@ -23,6 +23,7 @@ import { PropertyHeader } from "@/components/property/PropertyHeader";
 import { PropertyFooter } from "@/components/property/PropertyFooter";
 import { DirectBookingDeals } from "@/components/property/DirectBookingDeals";
 import PageBuilder from "@/components/sanity/PageBuilder";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { getPropertySite, getSanityPage, getSanityPagePaths } from "@/sanity/lib/content";
 import { ROUTE_SEO, seo } from "@/data/seo";
 import { resolveDocumentMetadata } from "@/sanity/lib/metadata";
@@ -48,8 +49,19 @@ export async function generateStaticParams(): Promise<Params[]> {
     .map((path) => ({ slug: path.slice(1).split("/") }));
 }
 
-/** Nothing outside the published pages should render. */
-export const dynamicParams = false;
+/**
+ * A path that was not in the list above is rendered on its first request
+ * rather than 404ing, so a page the client publishes in the Studio is live
+ * without a deploy — which is what this route was built for. `notFound()`
+ * below still answers any path with no `page` document behind it.
+ *
+ * The cost is that an unmatched URL is computed rather than served from a
+ * prebuilt 404, and this catch-all sits at the root, so every stray request
+ * on the site reaches it. Cloudflare caches that 404 like any other response
+ * and a publish purges the zone — so a path that 404s today and is created
+ * tomorrow goes live with the publish, not on the next deploy.
+ */
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
@@ -83,6 +95,7 @@ export default async function CmsPage({ params }: { params: Promise<Params> }) {
     <>
       <PropertyHeader site={site} activeHref={path} />
       <main>
+        <BreadcrumbJsonLd path={path} name={page.title} />
         <PageBuilder sections={page.sections} site={site} />
       </main>
       <PropertyFooter site={site} />

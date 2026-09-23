@@ -23,6 +23,7 @@ import { DirectBookingDeals } from "@/components/property/DirectBookingDeals";
 import { PropertyHero } from "@/components/property/PropertyHero";
 import { ExperienceDetailBody } from "@/components/property/ExperienceDetail";
 import { AwardsRow } from "@/components/property/AwardsRow";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { getExperience, getExperiences, getPropertySite, getSiteLabels } from "@/sanity/lib/content";
 import { resolveDocumentMetadata } from "@/sanity/lib/metadata";
 
@@ -32,9 +33,9 @@ type Params = { activity: string[] };
 
 /**
  * Slugs come from Sanity when experiences are published there and from
- * src/data/experiences.ts otherwise. `dynamicParams = false` makes this list
- * authoritative, so an experience published only in the CMS has to appear
- * here or it would 404.
+ * src/data/experiences.ts otherwise. This is what is prerendered at build
+ * time; `dynamicParams = true` below means an experience published after that
+ * build still resolves.
  */
 export async function generateStaticParams(): Promise<Params[]> {
   const experiences = await getExperiences();
@@ -45,7 +46,13 @@ export async function generateStaticParams(): Promise<Params[]> {
     }));
 }
 
-export const dynamicParams = false;
+/**
+ * A slug that was not in the list above is rendered on its first request
+ * rather than 404ing, so an experience published in the Studio is live without a
+ * deploy. `notFound()` below still answers anything that matches no document,
+ * so this widens what can render, not what exists.
+ */
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
@@ -75,6 +82,7 @@ export default async function CultureActivityPage({
     <>
       <PropertyHeader site={site} activeHref="/ubud/balinese-culture" />
       <main>
+        <BreadcrumbJsonLd path={`/ubud/${item.slug}`} name={item.title} />
         <PropertyHero
           images={[item.hero]}
           alt={item.title}

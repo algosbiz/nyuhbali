@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import PageBuilder from "@/components/sanity/PageBuilder";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { getPropertySite, getSanityPage } from "@/sanity/lib/content";
 import type { PropertySlug } from "@/data/properties";
 
@@ -43,8 +44,16 @@ export default async function ManagedPage({
   // says "render none of this", and the resolver's rule for that everywhere
   // else is to hand back what the route already had.
   const visible = (page?.sections ?? []).filter((section) => !section.isHidden);
-  if (!visible.length) return <>{children}</>;
+  // The breadcrumb depends on the path alone, so it is the same whichever of
+  // the two renders below — and every hand-written route gets it from here.
+  const breadcrumb = <BreadcrumbJsonLd path={path} />;
+  if (!visible.length) return <>{breadcrumb}{children}</>;
 
   const site = await getPropertySite(page!.property ?? fallbackProperty);
-  return <PageBuilder sections={visible} site={site} />;
+  return (
+    <>
+      {breadcrumb}
+      <PageBuilder sections={visible} site={site} />
+    </>
+  );
 }

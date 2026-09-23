@@ -6,6 +6,7 @@ import { PostBody } from "@/components/property/PostBody";
 import { PostGrid } from "@/components/property/PostGrid";
 import { ReadingProgress } from "@/components/property/ReadingProgress";
 import { AwardsRow } from "@/components/property/AwardsRow";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { getPostByPath, getPosts, getPropertySite, getSiteLabels } from "@/sanity/lib/content";
 import type { ResolvedPost } from "@/sanity/lib/content";
 
@@ -43,6 +44,7 @@ export async function PostPage({ post }: PostPageProps) {
       {/* Article pages only — it would be meaningless on a listing page. */}
       <ReadingProgress />
       <main>
+        <BreadcrumbJsonLd path={post.path} name={post.title} />
         <PropertyHero
           images={[post.image]}
           alt={post.title}

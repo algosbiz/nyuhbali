@@ -494,11 +494,15 @@ Confirm the webhook exists with `npm run sanity -- hook list`. An empty result m
 
 `/api/purge/sweep` is the net under all of this — see README-CLOUDFLARE.md §5.
 
-## 8. `dynamicParams = false` and the CMS
+## 8. `dynamicParams` and the CMS
 
-The room, experience, post **and CMS-page** routes are catch-alls with `dynamicParams = false`, so `generateStaticParams` is authoritative: a document published only in Sanity **must** appear there or its URL 404s. Each builds its list from `getRooms` / `getExperiences` / `getPostPaths` / `getSanityPagePaths`, which return Sanity's documents when they exist and `src/data`'s otherwise.
+The room, experience, post **and CMS-page** routes are catch-alls. Each builds its prerender list from `getRooms` / `getExperiences` / `getPostPaths` / `getSanityPagePaths`, which return Sanity's documents when they exist and `src/data`'s otherwise.
 
-**This is the one thing that is not instant.** Editing a published page updates in seconds through Live Content and the webhook. Creating a *new* page at a path that has never been built needs a fresh `generateStaticParams`, which means a redeploy. If editors should be able to add pages without one, drop `dynamicParams = false` from `src/app/[...slug]/page.tsx` — the trade is that an unknown path then renders on demand instead of 404ing at the edge.
+**All ten now carry `dynamicParams = true`, so creating a document is as instant as editing one.** It was `false`, and that made `generateStaticParams` authoritative: a document published after the last build had no route and 404d until somebody redeployed. Editing was already instant through Live Content and the webhook; only *adding* needed a developer, which on a site whose Vercel account one person holds meant the client could not add a room or a blog post at all. The paragraph this replaces proposed exactly this change and named the trade — an unknown path renders on demand instead of 404ing at the edge — and that trade was taken deliberately.
+
+Two things did not change. **Nothing new can render**: every one of those routes already called `notFound()` for a slug with no document behind it, which is what makes the flip safe, and the flip was verified against a production server rather than assumed. **The build still prerenders exactly what it did** — `true` adds a fallback for slugs the build did not know about; it does not move anything out of the build. The raw `<main>` markup of all 79 prerendered pages is byte-identical across the change.
+
+What still needs a deploy: anything in code — a new section type, a design change, a new route *shape*. And a **post** published under a prefix no route file covers still 404s, because the root catch-all answers `page` documents, not posts (`/ubud/discover/`, `/seminyak/discover/`, `/ubud/discoverl/` and `/ubud/spa/` are the four prefixes that have one). `src/app/sitemap.ts` knows this and refuses to advertise such a post.
 
 ## 9. Type safety
 

@@ -4,6 +4,7 @@ import { PropertyFooter } from "@/components/property/PropertyFooter";
 import { LegalSection } from "@/components/legal/LegalSection";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { getLegalPage, getPropertySite } from "@/sanity/lib/content";
 import { resolvePageMetadata } from "@/sanity/lib/metadata";
 
@@ -24,6 +25,7 @@ export default async function PrivacyPolicyPage() {
     <>
       <PropertyHeader site={site} activeHref="/privacy-policy" />
       <main>
+        <BreadcrumbJsonLd path="/privacy-policy" />
         {/* Same treatment as Terms & Conditions — see the note there. */}
         <Section tone="sand" space="loose" width="narrow">
           <SectionHeading title="Privacy Policy" as="h1" size="display" />

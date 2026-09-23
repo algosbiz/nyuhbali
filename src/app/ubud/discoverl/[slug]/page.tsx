@@ -25,9 +25,9 @@ type Params = { slug: string };
 
 /**
  * Paths come from Sanity when posts are published there and from
- * src/data/posts.ts otherwise — see getPostPaths. `dynamicParams = false`
- * makes this list authoritative, so a post published only in the CMS has to
- * appear here or it would 404.
+ * src/data/posts.ts otherwise — see getPostPaths. This is what is
+ * prerendered at build time; `dynamicParams = true` below means a post
+ * published after that build still resolves.
  */
 export async function generateStaticParams(): Promise<Params[]> {
   const paths = await getPostPaths();
@@ -36,7 +36,13 @@ export async function generateStaticParams(): Promise<Params[]> {
     .map((path) => ({ slug: path.slice(PREFIX.length + 1) }));
 }
 
-export const dynamicParams = false;
+/**
+ * A slug that was not in the list above is rendered on its first request
+ * rather than 404ing, so a post published in the Studio is live without a
+ * deploy. `notFound()` below still answers anything that matches no document,
+ * so this widens what can render, not what exists.
+ */
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,

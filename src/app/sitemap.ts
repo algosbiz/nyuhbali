@@ -23,8 +23,8 @@ import { getPostPaths, getSanityPagePaths } from "@/sanity/lib/content";
  * one has its own thin route wrapping `PostPage` (`/ubud/discover/[slug]`,
  * `/seminyak/discover/[slug]`, the misspelt `/ubud/discoverl/[slug]`, and
  * `/ubud/spa/[slug]`). A post published in the Studio under any other path has
- * nowhere to render — `dynamicParams = false` makes it a 404 — so it must not
- * be advertised here. The two posts that live outside these prefixes
+ * nowhere to render — the root catch-all answers `page` documents, not posts,
+ * so any other prefix is a 404 — so it must not be advertised here. The two posts that live outside these prefixes
  * (`/ubud/retreat/detox` and `/ubud/wellness/yoga/retreat`) have standalone
  * route files and are already in `ROUTE_SEO`, so they are covered by the base
  * list below.
