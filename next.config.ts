@@ -484,6 +484,194 @@ const nextConfig: NextConfig = {
       // the `/ubud-blog/page/2` entry above.
       { source: "/ubud/discover/page/2", destination: "/ubud/discover", permanent: true },
 
+
+      // ── The WordPress media library ──────────────────────────────────
+      //
+      // Every photograph and menu PDF this site serves lives in
+      // `public/uploads/` under WordPress's own `/YYYY/MM/name.ext` layout —
+      // which is what makes the last rule below a one-liner: an old
+      // `/wp-content/uploads/2023/03/x.webp` is the same path with a
+      // different prefix. Measured against every upload URL the Internet
+      // Archive holds for the domain (543 of them), **85 resolve exactly**;
+      // the rest are files this build does not carry and 404 either way, so
+      // the rule can only help.
+      //
+      // The named rules above it are the files it *cannot* help, requested by
+      // the client for image search. Two things about them are worth keeping.
+      //
+      // **A redirect per exact URL would have missed most of the links.**
+      // WordPress publishes a handful of size variants per image, and the
+      // client's list was the `-212x300` thumbnails while Ahrefs reports the
+      // referring domains on `-724x1024` and on the bare filename. So each
+      // rule matches the *base name* with an optional `-WxH` suffix rather
+      // than one spelling. **These are the redirects whose matching cannot be
+      // read off the source** — see the note on `src/proxy.ts` about a
+      // matcher that silently matched nothing — so every pattern here was
+      // checked against a running production build, positively and
+      // negatively, not by eye.
+      //
+      // **The destination is an image, never a page.** An image URL sent to
+      // an HTML page is a soft 404 to Google Images and throws the signal
+      // away; the client's own rule was that the picture need only match the
+      // name, which is what makes these defensible.
+
+      // The Seminyak room whose title is literally "Honeymoon Suite Pool
+      // Villa", and this is that page's hero — the closest thing to the same
+      // photograph under the same name. Four referring domains.
+      {
+        source: "/wp-content/uploads/2022/12/:file(honeymoon-suite-pool-villa(?:-\\d+x\\d+)?\\.jpe?g)",
+        destination: "/uploads/2023/03/Honeymoon-Suite-Pool-Villa-1.webp",
+        permanent: true,
+      },
+
+      // The candle-light dinner family, which is five base names across four
+      // folders rather than the three URLs the client listed — the strongest
+      // of them, `In-villa-candle-light-dinner.jpg` at six referring domains,
+      // was not on the list at all. They were menu cards and setup shots for
+      // one offer, and `Couple-having-a-romantic-dinner-at-Nyuh-Bali.jpg` is
+      // the photograph of that offer this build actually carries: a table for
+      // two at night, candle lit, under the Balinese umbrellas. One
+      // destination for all of them is correct here — they are one subject,
+      // and picking different pictures to keep the URLs distinct would put a
+      // photograph behind a name that does not describe it.
+      {
+        // Balinese / Indonesian / International, plus every size variant.
+        source: "/wp-content/uploads/2019/08/:file(Candle-light-dinner-[A-Za-z]+(?:-\\d+x\\d+)?\\.png)",
+        destination: "/uploads/2024/04/Couple-having-a-romantic-dinner-at-Nyuh-Bali.jpg",
+        permanent: true,
+      },
+      {
+        source: "/wp-content/uploads/2019/08/:file(100-candles-light-dinner(?:-\\d+x\\d+)?\\.png)",
+        destination: "/uploads/2024/04/Couple-having-a-romantic-dinner-at-Nyuh-Bali.jpg",
+        permanent: true,
+      },
+      {
+        // `candle-light-diner` is the live site's own misspelling, and both
+        // spellings are published.
+        source: "/wp-content/uploads/2019/02/:file([Cc]andle-light-din(?:n)?er[A-Za-z-]*?(?:-\\d+x\\d+)?\\.jpe?g)",
+        destination: "/uploads/2024/04/Couple-having-a-romantic-dinner-at-Nyuh-Bali.jpg",
+        permanent: true,
+      },
+      {
+        source: "/wp-content/uploads/2018/07/:file(In-villa-candle-light-dinner(?:-\\d+x\\d+)?\\.jpe?g)",
+        destination: "/uploads/2024/04/Couple-having-a-romantic-dinner-at-Nyuh-Bali.jpg",
+        permanent: true,
+      },
+      {
+        source: "/wp-content/uploads/2016/02/:file(2\\.-Romantic-Candle-Light-Dinner-Nyuh-Bali-Villas(?:-\\d+)?(?:-\\d+x\\d+)?\\.jpe?g)",
+        destination: "/uploads/2024/04/Couple-having-a-romantic-dinner-at-Nyuh-Bali.jpg",
+        permanent: true,
+      },
+
+      // Nothing here for `/wp-content/uploads/2016/02/easter.jpg`, the fifth
+      // URL on the client's list, and the omission is deliberate. It was a
+      // 2016 seasonal promotion: this build has no Easter photograph, no
+      // seasonal offer page, and nothing whose name matches — the nearest
+      // candidate, `sweet-celebration.webp`, is a romantic bed setup with
+      // heart balloons, which is a different occasion wearing the word
+      // "celebration". The Internet Archive never captured the file, so it
+      // cannot even be looked at, and Ahrefs reports no referring domain for
+      // it, so a 404 costs nothing. Inventing a match is how a redirect
+      // starts lying; if the business wants one, it is a content decision.
+
+
+      // The seven image URLs carrying the most links, none of which this
+      // build carries under its old name. Ranked by referring domains, which
+      // is why they are worth a judgement each rather than a 404: 27, 20, 14,
+      // 7, 7, 6 and 5. **Only two of the seven survive in the Internet
+      // Archive**, so five were matched on the name alone — which is the rule
+      // the client set, and the reason the two that *could* be looked at were
+      // looked at is below.
+
+      // 27 referring domains, the most of any URL on this domain. Never
+      // archived, and by its filename it was a stock photograph of stacked
+      // zen stones with the agency's own id on the end, so there is nothing
+      // of the resort to match. `restoring-body-balance` is the closest this
+      // build has on both counts — the word the old name leads with, and a
+      // guest holding a balance pose on the Ubud rooftop shala.
+      {
+        source:
+          "/wp-content/uploads/2018/02/:file(Balance-Meditation-Zen-Stack-Stones-Rocks-Pile-2907290(?:-\\d+x\\d+)?\\.jpe?g)",
+        destination: "/uploads/2023/09/restoring-body-balance-1.webp",
+        permanent: true,
+      },
+
+      // The Seminyak spa's printed menu, photographed — 15 referring domains
+      // on the https spelling and 5 more on http, plus `…menu2` at 4, so the
+      // rule takes the whole numbered family. There is no menu *image* here
+      // (the menus are PDFs now), so it goes to the lead photograph of the
+      // page that carries them.
+      {
+        source: "/wp-content/uploads/2016/02/:file(nyuhbalispamenu\\d+(?:-\\d+x\\d+)?\\.jpe?g)",
+        destination: "/uploads/2023/03/Seminyak-Spa-2.webp",
+        permanent: true,
+      },
+
+      // One of the two that *is* archived, and worth having looked at: the
+      // resort's entrance bridge, two guardian statues under black-and-white
+      // payung. `/ubud` is the About Us page this names, so its own hero is
+      // the counterpart — a different view of the same subject, which is the
+      // most the client's rule asks for.
+      {
+        source: "/wp-content/uploads/2018/02/:file(ubud-nyuh-bali-about-us(?:-\\d+x\\d+)?\\.jpe?g)",
+        destination: "/uploads/2025/01/home-ubud-compress.webp",
+        permanent: true,
+      },
+
+      // Same villa, same index: the linked URL is `…one-bedroom-pool-villas-3`
+      // and `One-Bedroom-Pool-Villa-3.webp` is that villa's third photograph,
+      // checked rather than assumed — pool at dusk, loungers, open bedroom.
+      // Pinned to `-3` rather than the numbered family, because that is the
+      // only index anything links to and inventing the others would put a
+      // photograph behind a number that never existed.
+      {
+        source:
+          "/wp-content/uploads/2016/02/:file(Villa-in-seminyak-nyuh-bali-villas-one-bedroom-pool-villas-3(?:-\\d+x\\d+)?\\.jpe?g)",
+        destination: "/uploads/2023/03/One-Bedroom-Pool-Villa-3.webp",
+        permanent: true,
+      },
+
+      // The Ubud Honeymoon Suite, whose gallery still opens on this
+      // photograph — canopy bed, swan towels, balcony over the garden. The
+      // numbered family goes to one image because they are one room.
+      {
+        source:
+          "/wp-content/uploads/2018/02/:file(ubud-nyuh-bali-accomodation-honeymoon-suite-\\d+(?:-\\d+x\\d+)?\\.jpe?g)",
+        destination: "/uploads/2023/03/Honeymoon-Suite-3.webp",
+        permanent: true,
+      },
+
+      // **The one that would have gone to the wrong property.** `contact.jpg`
+      // reads as the Seminyak contact photograph and it is not: the archived
+      // file is Ubud's entrance sign, carrying Ubud's street address and
+      // `info@ubudnyuhbali.com`. This is exactly the trap the media-library
+      // note warns about, and the only reason it was caught is that the file
+      // was fetched and looked at. It goes to Ubud's contact photograph.
+      {
+        source: "/wp-content/uploads/2018/07/:file(contact(?:-\\d+x\\d+)?\\.jpe?g)",
+        destination: "/uploads/2023/03/contact-us-ubud.webp",
+        permanent: true,
+      },
+
+      // The Explore Bali charter car at the Seminyak entrance. Five of this
+      // numbered family carry links (`-3` through `-9`, one of them with 185
+      // inbound links), they are one tour page's photographs, and this is the
+      // photograph that page still opens on.
+      {
+        source: "/wp-content/uploads/2019/03/:file(nyuh-bali-tour-\\d+(?:-\\d+x\\d+)?\\.jpe?g)",
+        destination: "/uploads/2023/03/Tour-Seminyak.webp",
+        permanent: true,
+      },
+
+      // Everything else the media library ever served, at the same path under
+      // the prefix this build uses. LAST, because the rules above are more
+      // specific and Next takes the first match.
+      {
+        source: "/wp-content/uploads/:path*",
+        destination: "/uploads/:path*",
+        permanent: true,
+      },
+
       // Nothing here for the http:// and www. rows of the same crawl. Those
       // are host-level, not path-level: TLS termination handles the scheme,
       // and www -> apex is a Cloudflare redirect rule, because src/proxy.ts

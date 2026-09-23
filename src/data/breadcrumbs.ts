@@ -8,26 +8,24 @@ import { SITE_ORIGIN } from "./origin";
  *
  * ## How a trail is built
  *
- * Walk the page's URL upwards and keep every ancestor that is a hub page
- * listed in `HUB_NAMES`, then put Home first and the page itself last. So
+ * Walk the page's URL upwards and keep **every ancestor that is a real page**,
+ * then put Home first and the page itself last. So
  * `/ubud/retreat/luxury/anti-aging` is Home › Ubud › Retreat › Luxury Retreat ›
- * the programme, and a blog post at `/ubud/spa/flower-bath` is Home › Ubud ›
- * SPA › the post.
+ * the programme, and `/ubud/villa/honeymoon/pool` is Home › Ubud › Stay ›
+ * Honeymoon Pool Villa › the suite — the honeymoon room is a page at
+ * `/ubud/villa/honeymoon`, so it is a step.
  *
- * **Only hub pages become ancestors, never a detail page.** Room, experience
- * and post slugs nest (`honeymoon/pool` sits under `honeymoon`, the yoga
- * retreat post under the Yoga class), but those are siblings that happen to
- * share a WordPress parent, not a real hierarchy — every room is a child of
- * Stay, not of another room. A segment that is not a hub (`/ubud/villa/honeymoon`
- * on the way to the Romance page, the misspelt `/ubud/discoverl`) is skipped
- * rather than named, so every `item` in a trail is a page that answers 200.
+ * "A real page" is a hub in `HUB_NAMES` or a detail page (room, experience)
+ * named in the `pages` argument, which `BreadcrumbJsonLd` fills from the
+ * same data the routes render. That strictness was a review finding: an
+ * earlier version kept hubs only, and the trail then skipped pages the URL
+ * plainly passes through. A segment that is no page at all (the misspelt
+ * `/ubud/discoverl`) is still skipped, so every `item` answers 200.
  *
- * **`PARENT` overrides the URL where it points at the wrong parent.** Google
- * asks for the path a visitor would take, not a mirror of the URL, and most
- * URLs here are that path. The exceptions are the root-level slugs that
- * belong to a property (`/complimentary-services` is in Ubud's own menu) and
- * the two offers pages, whose URLs run *through* the villas listing and a
- * room while the menu files them under Offers.
+ * **`PARENT` only adds a parent where the URL has none worth naming** — the
+ * root-level slugs that belong to a property (`/complimentary-services` is in
+ * Ubud's own menu), `/ubud/fitness`, and the misspelt blog prefix. It never
+ * replaces a real page the URL passes through.
  *
  * ## Names
  *
@@ -92,9 +90,6 @@ const PARENT: Record<string, string> = {
   "/spa-reservation-seminyak": "/seminyak/spa",
   "/ubud-spa-booking-form": "/ubud/spa",
   "/ubud-personalize-your-retreat": "/ubud/retreat",
-  // Filed under Offers in the menu; the URL runs through Stay/Villas instead.
-  "/ubud/villa/honeymoon/packages": "/ubud/packages",
-  "/seminyak/villa/honeymoon/packages": "/seminyak",
   // "Home Gym" is a wellness class that WordPress published at /ubud/fitness.
   "/ubud/fitness": "/ubud/wellness",
   // The live site's misspelt blog prefix; its posts belong to the blog.
@@ -117,20 +112,26 @@ function normalize(path: string): string {
 /**
  * The trail for `path`, Home first and the page itself last. `name` is the
  * page's own title; a hub page may omit it and use its entry in `HUB_NAMES`.
+ * `pages` names the detail pages that may appear as ancestors, keyed by path.
  *
  * Returns `[]` for the landing page and for a page with no name to give it —
  * a one-item breadcrumb says nothing, and an unnamed item is invalid.
  */
-export function breadcrumbTrail(path: string, name?: string): BreadcrumbItem[] {
+export function breadcrumbTrail(
+  path: string,
+  name?: string,
+  pages: Record<string, string> = {},
+): BreadcrumbItem[] {
+  const names: Record<string, string> = { ...pages, ...HUB_NAMES };
   const self = normalize(path);
-  const selfName = name?.trim() || HUB_NAMES[self];
+  const selfName = name?.trim() || names[self];
   if (self === "/" || !selfName) return [];
 
   const ancestors: BreadcrumbItem[] = [];
   // Bounded by the path's depth; the guard only protects against a cycle
   // written into PARENT by mistake.
   for (let at = parentOf(self), steps = 0; at !== "/" && steps < 12; steps++) {
-    if (HUB_NAMES[at]) ancestors.unshift({ name: HUB_NAMES[at], path: at });
+    if (names[at]) ancestors.unshift({ name: names[at], path: at });
     at = parentOf(at);
   }
 
