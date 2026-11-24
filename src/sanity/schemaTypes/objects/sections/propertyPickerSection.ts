@@ -58,11 +58,11 @@ export const propertyPanel = defineType({
  * it is the one route with no property: its chrome is `HomeHeader`/
  * `HomeFooter`, not a resort's, so none of the per-property sections apply.
  *
- * Both panels live in **one** section rather than one section each, for two
- * reasons: the page is a single choice rather than a stack of bands, and
- * exactly one `<h1>` per page is an invariant here — the first panel renders
- * it and the rest render `<h2>`, which cannot be got wrong if the order is the
- * array's own. Adding a third property is then just a third entry.
+ * Both panels live in **one** section rather than one section each, because
+ * the page is a single choice rather than a stack of bands. Adding a third
+ * property is then just a third entry. Every panel's name is an `<h2>`: the
+ * properties are equal, so none of them is the page's title and the homepage
+ * has no `<h1>` on purpose (see `PropertyPanel`).
  */
 export const propertyPickerSection = defineType({
   name: "propertyPickerSection",
@@ -75,7 +75,7 @@ export const propertyPickerSection = defineType({
       type: "array",
       of: [defineArrayMember({ type: "propertyPanel" })],
       description:
-        "Shown side by side on a desktop and stacked on a phone, in this order. The first one carries the page's heading.",
+        "Shown side by side on a desktop and stacked on a phone, in this order.",
       validation: (Rule) => Rule.required().min(1).max(4),
     }),
     // No background field: both panels are full-bleed photographs, so there

@@ -266,6 +266,24 @@ function safeId(prefix: string, value: string): string {
 }
 
 /**
+ * Posts whose URL changed after they were first imported.
+ *
+ * A document's `_id` is fixed when it is created, while `safeId` derives one
+ * from the path. So a post that moves would be looked for under an id that
+ * does not exist: `posts` would create a second copy of the article, and
+ * `categories` would fail patching nothing. Pinning the original id is what
+ * keeps a rerun writing to the document that is already there. The id is
+ * internal and appears in no URL.
+ */
+const MOVED_POST_IDS: Record<string, string> = {
+  "/ubud/discover/luxury-hotel-awards": "post-ubud-discoverl-luxury-hotel-awards",
+};
+
+function postId(path: string): string {
+  return MOVED_POST_IDS[path] ?? safeId("post", path.slice(1));
+}
+
+/**
  * Array item keys must be stable across reruns, or --replace would hand every
  * item a new identity and Sanity's history would show the whole array as
  * rewritten each time.
@@ -1944,7 +1962,7 @@ async function migrateCategories() {
     tagged += 1;
     if (dryRun || !client) continue;
     await client
-      .patch(safeId("post", post.path.slice(1)))
+      .patch(postId(post.path))
       .set({ categories: references })
       .commit();
   }
@@ -1965,7 +1983,7 @@ async function migratePosts() {
     }
 
     await write({
-      _id: safeId("post", post.path.slice(1)),
+      _id: postId(post.path),
       _type: "post",
       title: post.title,
       path: post.path,

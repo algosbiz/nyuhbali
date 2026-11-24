@@ -19,13 +19,13 @@ import { SITE_ORIGIN } from "./origin";
  * named in the `pages` argument, which `BreadcrumbJsonLd` fills from the
  * same data the routes render. That strictness was a review finding: an
  * earlier version kept hubs only, and the trail then skipped pages the URL
- * plainly passes through. A segment that is no page at all (the misspelt
- * `/ubud/discoverl`) is still skipped, so every `item` answers 200.
+ * plainly passes through. A segment that is no page at all is still skipped,
+ * so every `item` answers 200.
  *
  * **`PARENT` only adds a parent where the URL has none worth naming** — the
  * root-level slugs that belong to a property (`/complimentary-services` is in
- * Ubud's own menu), `/ubud/fitness`, and the misspelt blog prefix. It never
- * replaces a real page the URL passes through.
+ * Ubud's own menu) and `/ubud/fitness`. It never replaces a real page the URL
+ * passes through.
  *
  * ## Names
  *
@@ -78,8 +78,7 @@ const HUB_NAMES: Record<string, string> = {
 
 /**
  * Where the URL's own parent is not the page's real one. Keyed by the path of
- * the page (or of a URL prefix, for `/ubud/discoverl`); the value is the hub
- * the trail continues from.
+ * the page; the value is the hub the trail continues from.
  */
 const PARENT: Record<string, string> = {
   // Root-level slugs that belong to a property.
@@ -92,8 +91,6 @@ const PARENT: Record<string, string> = {
   "/ubud-personalize-your-retreat": "/ubud/retreat",
   // "Home Gym" is a wellness class that WordPress published at /ubud/fitness.
   "/ubud/fitness": "/ubud/wellness",
-  // The live site's misspelt blog prefix; its posts belong to the blog.
-  "/ubud/discoverl": "/ubud/discover",
 };
 
 export type BreadcrumbItem = { name: string; path: string };

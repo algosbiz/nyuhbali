@@ -759,7 +759,7 @@ export const POSTS: Post[] = [
     ],
   },
   {
-    path: "/ubud/discoverl/luxury-hotel-awards",
+    path: "/ubud/discover/luxury-hotel-awards",
     property: "ubud",
     title: "Nyuh Bali Achieves a Triple World Luxury Hotel Award",
     date: "2023-12-27",

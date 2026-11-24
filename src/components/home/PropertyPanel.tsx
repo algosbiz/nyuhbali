@@ -1,15 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ElementType } from "react";
 
 type PropertyPanelProps = {
   name: string;
   description: string;
   imageSrc: string;
   href: string;
-  /** Which heading tag to render (see the note below on why this is a prop
-   * instead of always being the same tag). */
-  headingLevel: "h1" | "h2";
   /** True for the panel whose photograph is the page's LCP element. Only one
    * panel may set it: on a phone the panels stack, so the second photograph
    * starts below the fold, and preloading both made them compete for the
@@ -32,20 +28,20 @@ type PropertyPanelProps = {
  * set at display scale, the description sits under it at a proper reading
  * measure, and the gold rule between them extends on hover.
  *
- * `headingLevel` exists because there should only be one `<h1>` per page, and
- * this component renders twice — so the caller decides which tag applies
- * rather than the component guessing.
+ * **Every panel's name is an `<h2>`, so the landing page has no `<h1>` — on
+ * purpose.** The first panel used to carry it, which told search engines the
+ * page was about Seminyak and Ubud was a section of it. The two properties are
+ * equal, so their headings are. Do not add an `<h1>` here or anywhere else on
+ * that page, visible or hidden, when an SEO tool reports it missing; every
+ * other page keeps its single one.
  */
 export function PropertyPanel({
   name,
   description,
   imageSrc,
   href,
-  headingLevel,
   priority = false,
 }: PropertyPanelProps) {
-  const Heading: ElementType = headingLevel;
-
   return (
     // `group` lets everything inside react to hovering anywhere on the panel.
     // `overflow-hidden` clips the image's zoom to the panel edges.
@@ -85,9 +81,9 @@ export function PropertyPanel({
           line of the description clear of it with room to spare. Don't reduce
           this without re-measuring the footer. */}
       <div className="relative w-full px-7 pb-28 sm:px-10 md:px-14 md:pb-32">
-        <Heading className="text-display font-heading font-light tracking-[0.06em] text-white uppercase">
+        <h2 className="text-display font-heading font-light tracking-[0.06em] text-white uppercase">
           {name}
-        </Heading>
+        </h2>
 
         {/* A widening gold rule instead of a "read more" label — it gives the
             panel a hover affordance without inventing any copy that isn't on

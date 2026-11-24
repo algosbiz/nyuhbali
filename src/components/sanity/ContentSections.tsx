@@ -658,9 +658,8 @@ export function PropertyPickerBlock({
   // siblings and adds no wrapper of its own — a wrapper here would become the
   // single grid cell and put both photographs in one column.
   //
-  // The first panel carries the `<h1>`: exactly one per page is an invariant
-  // here, and deriving it from the array's order is what makes it impossible
-  // to author two.
+  // Every panel's heading is an `<h2>`. The homepage has no `<h1>` on purpose
+  // — see PropertyPanel.
   return (
     <>
       {(section.panels ?? []).map((panel, index) => {
@@ -669,7 +668,6 @@ export function PropertyPickerBlock({
         return (
           <PropertyPanel
             key={panel._key ?? panel.href}
-            headingLevel={index === 0 ? "h1" : "h2"}
             priority={index === 0}
             name={panel.name}
             description={panel.description ?? ""}

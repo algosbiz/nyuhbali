@@ -21,8 +21,7 @@ import { getPostPaths, getSanityPagePaths } from "@/sanity/lib/content";
  *
  * Posts are published at several unrelated prefixes on the live site, and each
  * one has its own thin route wrapping `PostPage` (`/ubud/discover/[slug]`,
- * `/seminyak/discover/[slug]`, the misspelt `/ubud/discoverl/[slug]`, and
- * `/ubud/spa/[slug]`). A post published in the Studio under any other path has
+ * `/seminyak/discover/[slug]` and `/ubud/spa/[slug]`). A post published in the Studio under any other path has
  * nowhere to render — the root catch-all answers `page` documents, not posts,
  * so any other prefix is a 404 — so it must not be advertised here. The two posts that live outside these prefixes
  * (`/ubud/retreat/detox` and `/ubud/wellness/yoga/retreat`) have standalone
@@ -39,7 +38,6 @@ import { getPostPaths, getSanityPagePaths } from "@/sanity/lib/content";
 const POST_ROUTE_PREFIXES = [
   "/ubud/discover/",
   "/seminyak/discover/",
-  "/ubud/discoverl/",
   "/ubud/spa/",
 ];
 

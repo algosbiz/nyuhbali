@@ -218,6 +218,11 @@ export const ROUTE_SEO: Record<string, RouteSeo> = {
     description:
       "Indulge in a luxurious honeymoon in Ubud. Enjoy tailored packages, private villas, and serene landscapes for the ultimate romantic escape.",
   },
+  "/ubud/discover/luxury-hotel-awards": {
+    title: "Nyuh Bali Achieves a Triple World Luxury Hotel Award",
+    description:
+      "Join us at Nyuh Bali Resort & Spa as we celebrate a triumphant moment with three prestigious titles at the 2023 World Luxury Hotel Awards.",
+  },
   "/ubud/discover/most-instagrammable-places": {
     title: "Most Instagrammable Places in Bali - Ubud Spots",
     description:
@@ -237,11 +242,6 @@ export const ROUTE_SEO: Record<string, RouteSeo> = {
     title: "Yoga Teacher Training in Bali - Nyuh Bali Ubud Resort",
     description:
       "Experience wellness and healing practices in Bali. Rejuvenate your spirit and restore well-being at Ubud Nyuh Bali Resort.",
-  },
-  "/ubud/discoverl/luxury-hotel-awards": {
-    title: "Nyuh Bali Achieves a Triple World Luxury Hotel Award",
-    description:
-      "Join us at Nyuh Bali Resort & Spa as we celebrate a triumphant moment with three prestigious titles at the 2023 World Luxury Hotel Awards.",
   },
   "/ubud/fitness": {
     title: "Gym in Ubud - Fitness - Nyuh Bali Ubud Resort",

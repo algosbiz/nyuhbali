@@ -280,6 +280,19 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
+      // The one redirect that corrects the live site rather than following it.
+      // WordPress published the awards post under a misspelt folder, and this
+      // build reproduced the misspelling so the URL would match. The post now
+      // lives at the prefix it was meant to have, and the old address keeps
+      // answering because it has been the published URL since 2023.
+      //
+      // Nothing may redirect *to* the misspelt path: that would be a chain.
+      {
+        source: "/ubud/discoverl/luxury-hotel-awards",
+        destination: "/ubud/discover/luxury-hotel-awards",
+        permanent: true,
+      },
+
 
       // ── The legacy WordPress permalinks ──────────────────────────────
       //
@@ -425,8 +438,8 @@ const nextConfig: NextConfig = {
       { source: "/spa-reservation-seminyak-2", destination: "/spa-reservation-seminyak", permanent: true },
 
       // Blog posts, at the bare slugs they were published under before the
-      // `/discover/` prefixes existed. `/ubud/discoverl/` is the live site's
-      // own misspelling and the route this build serves that post at.
+      // `/discover/` prefixes existed. The awards post goes straight to its
+      // corrected URL rather than through the misspelt one above.
       { source: "/10-romantic-honeymoon-activities-in-seminyak", destination: "/seminyak/discover/10-romantic-honeymoon-activities", permanent: true },
       { source: "/sunset-seminyak", destination: "/seminyak/discover/sunset", permanent: true },
       { source: "/five-relaxing-activities-to-do-in-ubud", destination: "/ubud/discover/five-relaxing-activities-to-do", permanent: true },
@@ -437,7 +450,7 @@ const nextConfig: NextConfig = {
       { source: "/what-is-a-bali-5-star-resort", destination: "/ubud/discover/5-star-resort", permanent: true },
       { source: "/what-is-hatha-yoga", destination: "/ubud/discover/hatha-yoga", permanent: true },
       { source: "/yoga-teacher-training-in-bali", destination: "/ubud/discover/yoga-teacher-training", permanent: true },
-      { source: "/luxury-hotel-award", destination: "/ubud/discoverl/luxury-hotel-awards", permanent: true },
+      { source: "/luxury-hotel-award", destination: "/ubud/discover/luxury-hotel-awards", permanent: true },
 
       // Two reopening announcements the live site retired to the landing
       // page. Copied as they stand rather than pointed at a resort: the post

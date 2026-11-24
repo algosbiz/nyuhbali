@@ -15,19 +15,20 @@ type PostPageProps = { post: ResolvedPost };
 /**
  * A whole blog-post page — chrome, hero, body and "more from the blog".
  *
- * The live site scatters posts across several URL prefixes (/ubud/discover/,
- * /ubud/spa/, /ubud/retreat/ and even a misspelt /ubud/discoverl/). Each of
+ * Posts are published under several URL prefixes (/ubud/discover/,
+ * /seminyak/discover/, /ubud/spa/, /ubud/retreat/, /ubud/wellness/). Each of
  * those needs its own Next.js route segment to keep the published URL
  * identical, so the *page* lives here once and every route file is a thin
  * wrapper that looks the post up and renders this.
  *
- * There was a fifth, the bare /life-coach-retreat-benefits/. WordPress retired
- * that URL — it 301s to /ubud/wellness/life-coach — so it is a redirect in
- * next.config.ts now rather than a route.
+ * Two more used to exist and are redirects in next.config.ts now: the bare
+ * /life-coach-retreat-benefits/, which WordPress retired to
+ * /ubud/wellness/life-coach, and WordPress's misspelling of /ubud/discover/,
+ * whose one post moved to the prefix it was meant to have.
  *
  * It resolves its own chrome and related posts rather than taking them as
- * props, so the five route files that render it did not each have to learn
- * how to ask Sanity for them.
+ * props, so the route files that render it did not each have to learn how to
+ * ask Sanity for them.
  */
 export async function PostPage({ post }: PostPageProps) {
   const site = await getPropertySite(post.property);

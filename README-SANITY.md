@@ -511,7 +511,7 @@ The room, experience, post **and CMS-page** routes are catch-alls. Each builds i
 
 Two things did not change. **Nothing new can render**: every one of those routes already called `notFound()` for a slug with no document behind it, which is what makes the flip safe, and the flip was verified against a production server rather than assumed. **The build still prerenders exactly what it did** — `true` adds a fallback for slugs the build did not know about; it does not move anything out of the build. The raw `<main>` markup of all 79 prerendered pages is byte-identical across the change.
 
-What still needs a deploy: anything in code — a new section type, a design change, a new route *shape*. And a **post** published under a prefix no route file covers still 404s, because the root catch-all answers `page` documents, not posts (`/ubud/discover/`, `/seminyak/discover/`, `/ubud/discoverl/` and `/ubud/spa/` are the four prefixes that have one). `src/app/sitemap.ts` knows this and refuses to advertise such a post.
+What still needs a deploy: anything in code — a new section type, a design change, a new route *shape*. And a **post** published under a prefix no route file covers still 404s, because the root catch-all answers `page` documents, not posts (`/ubud/discover/`, `/seminyak/discover/` and `/ubud/spa/` are the three prefixes that have one). `src/app/sitemap.ts` knows this and refuses to advertise such a post.
 
 ## 9. Type safety
 

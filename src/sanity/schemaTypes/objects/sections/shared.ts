@@ -91,9 +91,10 @@ export const eyebrowField = defineField({
  * should say so.
  *
  * **H1 is not offered.** A page's `<h1>` is its hero or its opening section,
- * every page has exactly one, and the whole-site audit checks that. Letting a
- * band claim one is the single easiest way for an editor to break page
- * structure without seeing anything change, so the ladder starts at H2.
+ * every page but the homepage has exactly one, and the whole-site audit
+ * checks that. Letting a band claim one is the single easiest way for an
+ * editor to break page structure without seeing anything change, so the
+ * ladder starts at H2.
  * `page.sections` validates the other half of the same rule — that a page
  * carries exactly one section capable of producing an `<h1>`.
  */

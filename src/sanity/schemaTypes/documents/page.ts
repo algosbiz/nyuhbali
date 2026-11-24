@@ -22,10 +22,12 @@ async function isUniquePath(
 /**
  * Exactly one `<h1>` per page, checked where the rule actually holds.
  *
- * Three section types can produce one: a hero always does, the property
- * picker's first panel does, and the contact body and the enquiry form do
- * when their heading level says so. Every other section is capped at H2 by
- * `headingLevelField`, so this is the whole of the rule.
+ * A hero always produces one; the contact body, the enquiry form and the
+ * packages band do when their heading level says so. Every other section is
+ * capped at H2 by `headingLevelField`, so this is the whole of the rule.
+ *
+ * The homepage is the one exception: it carries the property picker and no
+ * `<h1>` at all, by decision. See `PropertyPanel`.
  *
  * It is a **warning, not an error**, for one reason: it must not be able to
  * block an editor from saving a page that is mid-edit — a hero deleted before
@@ -38,7 +40,7 @@ function countPageTitles(sections: unknown): true | string {
   const titles = sections.filter((section) => {
     const s = section as { _type?: string; headingLevel?: string; isHidden?: boolean };
     if (s?.isHidden) return false;
-    if (s?._type === "heroSection" || s?._type === "propertyPickerSection") return true;
+    if (s?._type === "heroSection") return true;
     if (s?._type === "contactSection") return (s.headingLevel ?? "h1") === "h1";
     if (s?._type === "inquiryFormSection") return s.headingLevel === "h1";
     // The in-room pages have no hero: their packages band carries the <h1>.
@@ -48,6 +50,13 @@ function countPageTitles(sections: unknown): true | string {
     return false;
   });
   if (titles.length === 1) return true;
+  // The homepage. Asking an editor for a main heading here would undo the
+  // decision that it has none.
+  const isPicker = sections.some((section) => {
+    const s = section as { _type?: string; isHidden?: boolean };
+    return s?._type === "propertyPickerSection" && !s.isHidden;
+  });
+  if (titles.length === 0 && isPicker) return true;
   const names = titles.map((section) => (section as { _type?: string })._type).join(", ");
   if (titles.length === 0) {
     return "This page has no main heading. Add a hero, or set the contact or enquiry section's heading level to H1.";

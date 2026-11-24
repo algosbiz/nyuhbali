@@ -8,9 +8,8 @@
 // long as this sat next to the component it could not be read.
 // ======================================================
 
-/** One panel of the picker — the shape `PropertyPanel` takes, minus the
- *  heading level, which the page derives from position so there is exactly
- *  one `<h1>`. */
+/** One panel of the picker — the shape `PropertyPanel` takes, minus
+ *  `priority`, which the page derives from position. */
 export type HomePanel = {
   name: string;
   description: string;
