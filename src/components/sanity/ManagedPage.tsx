@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 import PageBuilder from "@/components/sanity/PageBuilder";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getPropertySite, getSanityPage } from "@/sanity/lib/content";
+import { pageSchema } from "@/sanity/lib/pageSchema";
 import type { PropertySlug } from "@/data/properties";
 
 /**
@@ -47,12 +49,17 @@ export default async function ManagedPage({
   // The breadcrumb depends on the path alone, so it is the same whichever of
   // the two renders below — and every hand-written route gets it from here.
   const breadcrumb = <BreadcrumbJsonLd path={path} />;
-  if (!visible.length) return <>{breadcrumb}{children}</>;
+  // Built from the sections about to render, so the two cannot disagree. Null
+  // for the pages that have none or bring their own — see `PAGE_SCHEMAS`.
+  const schema = await pageSchema(path, visible);
+  const jsonLd = schema ? <JsonLd data={schema} /> : null;
+  if (!visible.length) return <>{breadcrumb}{jsonLd}{children}</>;
 
   const site = await getPropertySite(page!.property ?? fallbackProperty);
   return (
     <>
       {breadcrumb}
+      {jsonLd}
       <PageBuilder sections={visible} site={site} />
     </>
   );

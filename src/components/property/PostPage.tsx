@@ -7,8 +7,10 @@ import { PostGrid } from "@/components/property/PostGrid";
 import { ReadingProgress } from "@/components/property/ReadingProgress";
 import { AwardsRow } from "@/components/property/AwardsRow";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getPostByPath, getPosts, getPropertySite, getSiteLabels } from "@/sanity/lib/content";
 import type { ResolvedPost } from "@/sanity/lib/content";
+import { postSchema } from "@/sanity/lib/pageSchema";
 
 type PostPageProps = { post: ResolvedPost };
 
@@ -46,6 +48,7 @@ export async function PostPage({ post }: PostPageProps) {
       <ReadingProgress />
       <main>
         <BreadcrumbJsonLd path={post.path} name={post.title} />
+        <JsonLd data={postSchema(post)} />
         <PropertyHero
           images={[post.image]}
           alt={post.title}

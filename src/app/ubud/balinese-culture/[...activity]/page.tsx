@@ -24,8 +24,10 @@ import { PropertyHero } from "@/components/property/PropertyHero";
 import { ExperienceDetailBody } from "@/components/property/ExperienceDetail";
 import { AwardsRow } from "@/components/property/AwardsRow";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getExperience, getExperiences, getPropertySite, getSiteLabels } from "@/sanity/lib/content";
 import { resolveDocumentMetadata } from "@/sanity/lib/metadata";
+import { experienceSchema } from "@/sanity/lib/pageSchema";
 
 const PREFIX = "balinese-culture/";
 
@@ -83,6 +85,7 @@ export default async function CultureActivityPage({
       <PropertyHeader site={site} activeHref="/ubud/balinese-culture" />
       <main>
         <BreadcrumbJsonLd path={`/ubud/${item.slug}`} name={item.title} />
+        <JsonLd data={experienceSchema(item)} />
         <PropertyHero
           images={[item.hero]}
           alt={item.title}

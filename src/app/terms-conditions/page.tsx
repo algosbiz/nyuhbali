@@ -5,8 +5,10 @@ import { LegalIntro, LegalSection } from "@/components/legal/LegalSection";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getLegalPage, getPropertySite } from "@/sanity/lib/content";
 import { resolveDocumentMetadata } from "@/sanity/lib/metadata";
+import { legalSchema } from "@/sanity/lib/pageSchema";
 
 const PATH = "/terms-conditions";
 
@@ -46,6 +48,7 @@ export default async function TermsConditionsPage() {
       <PropertyHeader site={site} activeHref={PATH} />
       <main>
         <BreadcrumbJsonLd path={PATH} name={title} />
+        <JsonLd data={legalSchema(PATH, resolveDocumentMetadata(PATH, document))} />
         <Section tone="sand" space="loose" width="narrow">
           <SectionHeading title={title} as="h1" size="display" />
           <LegalIntro text={document?.intro} />

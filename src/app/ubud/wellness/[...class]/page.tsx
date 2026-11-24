@@ -27,8 +27,10 @@ import { PropertyHero } from "@/components/property/PropertyHero";
 import { ExperienceDetailBody } from "@/components/property/ExperienceDetail";
 import { AwardsRow } from "@/components/property/AwardsRow";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getExperience, getExperiences, getPropertySite, getSiteLabels } from "@/sanity/lib/content";
 import { resolveDocumentMetadata } from "@/sanity/lib/metadata";
+import { experienceSchema } from "@/sanity/lib/pageSchema";
 
 const PREFIX = "wellness/";
 
@@ -86,6 +88,7 @@ export default async function WellnessClassPage({
       <PropertyHeader site={site} activeHref="/ubud/wellness" />
       <main>
         <BreadcrumbJsonLd path={`/ubud/${item.slug}`} name={item.title} />
+        <JsonLd data={experienceSchema(item)} />
         <PropertyHero
           images={[item.hero]}
           alt={item.title}

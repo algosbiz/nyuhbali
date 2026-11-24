@@ -28,25 +28,29 @@
  * That is what keeps the two from drifting: there is one source, not two
  * copies of one string. Everything else is fixed.
  *
- * ## Why the origin is a literal and not `SITE_ORIGIN`
+ * ## The other 70 pages
  *
- * The `@id` values are identifiers, not links — later pages (villas, spa,
- * dining, blog) will point at `https://nyuhbalivillas.com/ubud#resort` and
- * the rest. `SITE_ORIGIN` follows `SITE_URL`, so a deployment configured with
- * any other host would publish a second set of identities for the same
- * businesses. These must not move with the environment.
+ * They point at the `@id`s defined here and repeat short copies of these
+ * nodes; their schema is built in `data/schema/`. The `@id` values, names and
+ * addresses are in `data/schema/shared.ts`, which this file reads too.
  *
  * `/ubud` and `/seminyak` each repeat a short copy of the `WebSite` and
  * `Organization` nodes under the same `@id`s. That is intended: every page
  * stands alone. Do not "deduplicate" them away.
  */
 
-const ORIGIN = "https://nyuhbalivillas.com";
-
-const ORGANIZATION_ID = `${ORIGIN}/#organization`;
-const WEBSITE_ID = `${ORIGIN}/#website`;
-const UBUD_RESORT_ID = `${ORIGIN}/ubud#resort`;
-const SEMINYAK_HOTEL_ID = `${ORIGIN}/seminyak#hotel`;
+import {
+  ADDRESSES,
+  ORGANIZATION_ID,
+  ORGANIZATION_NODE,
+  ORIGIN,
+  PROPERTY_NAMES,
+  SEMINYAK_HOTEL_ID,
+  UBUD_RESORT_ID,
+  WEBSITE_ID,
+  WEBSITE_NODE,
+  openDaily,
+} from "./schema/shared";
 
 /** The `WebPage` text that follows the page's own `<title>` / meta description. */
 export type WebPageText = { name?: string; description?: string };
@@ -96,14 +100,14 @@ export function homeJsonLd(page: WebPageText) {
       {
         "@type": "Hotel",
         "@id": SEMINYAK_HOTEL_ID,
-        name: "Nyuh Bali Luxury Villas Seminyak",
+        name: PROPERTY_NAMES.seminyak,
         url: `${ORIGIN}/seminyak`,
         brand: { "@id": ORGANIZATION_ID },
       },
       {
         "@type": "Resort",
         "@id": UBUD_RESORT_ID,
-        name: "Ubud Nyuh Bali Resort & Spa",
+        name: PROPERTY_NAMES.ubud,
         url: `${ORIGIN}/ubud`,
         brand: { "@id": ORGANIZATION_ID },
       },
@@ -130,34 +134,17 @@ export function ubudJsonLd(page: WebPageText) {
         mainEntity: { "@id": UBUD_RESORT_ID },
         isPartOf: { "@id": WEBSITE_ID },
       },
-      {
-        "@type": "WebSite",
-        "@id": WEBSITE_ID,
-        name: "Nyuh Bali",
-        url: `${ORIGIN}/`,
-      },
-      {
-        "@type": "Organization",
-        "@id": ORGANIZATION_ID,
-        name: "Nyuh Bali",
-        url: `${ORIGIN}/`,
-      },
+      WEBSITE_NODE,
+      ORGANIZATION_NODE,
       {
         "@type": "Resort",
         "@id": UBUD_RESORT_ID,
-        name: "Ubud Nyuh Bali Resort & Spa",
+        name: PROPERTY_NAMES.ubud,
         url: `${ORIGIN}/ubud`,
         description:
           "Nyuh Bali provides luxury villas in Ubud for couples and families. Inspired by coconut philosophy, wellness activities are also available.",
         brand: { "@id": ORGANIZATION_ID },
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "Jl. Raya Silungan, Lodtunduh",
-          addressLocality: "Ubud",
-          addressRegion: "Bali",
-          postalCode: "80571",
-          addressCountry: "ID",
-        },
+        address: ADDRESSES.ubud,
         geo: { "@type": "GeoCoordinates", latitude: -8.5585306, longitude: 115.2664113 },
         telephone: "+62 853 3377 9779",
         email: "info@ubudnyuhbali.com",
@@ -245,34 +232,17 @@ export function seminyakJsonLd(page: WebPageText) {
         mainEntity: { "@id": SEMINYAK_HOTEL_ID },
         isPartOf: { "@id": WEBSITE_ID },
       },
-      {
-        "@type": "WebSite",
-        "@id": WEBSITE_ID,
-        name: "Nyuh Bali",
-        url: `${ORIGIN}/`,
-      },
-      {
-        "@type": "Organization",
-        "@id": ORGANIZATION_ID,
-        name: "Nyuh Bali",
-        url: `${ORIGIN}/`,
-      },
+      WEBSITE_NODE,
+      ORGANIZATION_NODE,
       {
         "@type": "Hotel",
         "@id": SEMINYAK_HOTEL_ID,
-        name: "Nyuh Bali Luxury Villas Seminyak",
+        name: PROPERTY_NAMES.seminyak,
         url: `${ORIGIN}/seminyak`,
         description:
           "Romanticise in luxury Seminyak villas, blending Balinese tradition and wellness activities. Enjoy candle lit dinners with your very own chef.",
         brand: { "@id": ORGANIZATION_ID },
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "Jl. Bali Deli No. 99",
-          addressLocality: "Seminyak",
-          addressRegion: "Bali",
-          postalCode: "80361",
-          addressCountry: "ID",
-        },
+        address: ADDRESSES.seminyak,
         telephone: "+62 361 738920",
         email: "reservation@nyuhbalivillas.com",
         checkinTime: "14:00",
@@ -286,20 +256,7 @@ export function seminyakJsonLd(page: WebPageText) {
         amenityFeature: [
           {
             ...amenity("Onsite day spa"),
-            hoursAvailable: {
-              "@type": "OpeningHoursSpecification",
-              dayOfWeek: [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday",
-              ],
-              opens: "09:00",
-              closes: "17:00",
-            },
+            hoursAvailable: openDaily("09:00", "17:00"),
           },
           amenity("Onsite restaurant"),
           amenity("Lobby with waiting area"),

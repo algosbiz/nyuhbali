@@ -513,6 +513,20 @@ Two things did not change. **Nothing new can render**: every one of those routes
 
 What still needs a deploy: anything in code — a new section type, a design change, a new route *shape*. And a **post** published under a prefix no route file covers still 404s, because the root catch-all answers `page` documents, not posts (`/ubud/discover/`, `/seminyak/discover/` and `/ubud/spa/` are the three prefixes that have one). `src/app/sitemap.ts` knows this and refuses to advertise such a post.
 
+### Prices feed the structured data
+
+Search engines read prices, villa sizes and occupancy out of the same text the page displays, so how that text is written matters:
+
+| Field | Write it as | What is read |
+|---|---|---|
+| Treatment option | `60 mins \| IDR 490.000++` | duration, price, plus tax and service |
+| Tour or activity "Price" row | `IDR 1.250.000++ for two persons`, `IDR 800.000++ / car` | price and what it buys |
+| Experience price | `Available at IDR 990.000++ for a private session` | price and what it buys |
+| Room "Size" | `65 sqm` | 65 |
+| Room "Max Occupancy" | `2 adults and one child` | 2 |
+
+Anything written another way (`IDR 1.5 million`, `from 490K`) still displays exactly as typed; it just drops out of the structured data rather than being guessed at. Leaving off `++` means "no tax note", not "tax included".
+
 ## 9. Type safety
 
 Schema modules live in `src/sanity/schemaTypes`, queries in `src/sanity/lib/queries.ts`, handwritten runtime contracts in `src/sanity/types.ts`, and the fallback layer in `src/sanity/lib/content.ts`.

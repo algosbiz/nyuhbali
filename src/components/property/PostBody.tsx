@@ -10,6 +10,7 @@ import {
   type PointItem,
 } from "@/components/property/postBlocks";
 import type { Post, PostBlock } from "@/data/posts";
+import { PROPERTY_NAMES } from "@/data/schema/shared";
 
 /**
  * A rate table inside an article.
@@ -318,6 +319,11 @@ export function PostBody({ post, blogLabel = "Our Blog" }: PostBodyProps) {
               <span aria-hidden className="block h-px w-4 bg-primary" />
             </>
           ) : null}
+          {/* The article's author: the property whose blog it is in, the same
+              name its structured data gives. */}
+          <span>{PROPERTY_NAMES[post.property]}</span>
+          <span className="sr-only">, </span>
+          <span aria-hidden className="block h-px w-4 bg-primary" />
           <time dateTime={post.date}>{formatPostDate(post.date)}</time>
           {/* The gold rule is the *visual* separator, but it's aria-hidden and
               carries no text — without this the two run together for a screen

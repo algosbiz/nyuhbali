@@ -78,7 +78,15 @@ export async function resolvePageMetadata(
 export async function resolveWebPageText(
   path: string,
 ): Promise<{ name?: string; description?: string }> {
-  const { title, description } = await resolvePageMetadata(path);
+  return metadataText(await resolvePageMetadata(path));
+}
+
+/** The same two strings out of metadata that has already been resolved — for
+ *  the routes backed by their own document rather than by a `page`. */
+export function metadataText({ title, description }: Metadata): {
+  name?: string;
+  description?: string;
+} {
   let name: string | undefined;
   if (typeof title === "string") name = title;
   else if (title && "absolute" in title) name = title.absolute;

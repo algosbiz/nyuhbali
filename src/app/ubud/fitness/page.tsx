@@ -27,8 +27,10 @@ import { PropertyHero } from "@/components/property/PropertyHero";
 import { ExperienceDetailBody } from "@/components/property/ExperienceDetail";
 import { AwardsRow } from "@/components/property/AwardsRow";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getExperience, getPropertySite, getSiteLabels } from "@/sanity/lib/content";
 import { resolvePageMetadata } from "@/sanity/lib/metadata";
+import { pageSchema } from "@/sanity/lib/pageSchema";
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -42,12 +44,14 @@ export default async function UbudFitnessPage() {
   const labels = await getSiteLabels();
   const item = await getExperience("fitness");
   if (!item) notFound();
+  const schema = await pageSchema("/ubud/fitness");
 
   return (
     <>
       <PropertyHeader site={site} activeHref="/ubud/wellness" />
       <main>
         <BreadcrumbJsonLd path={`/ubud/${item.slug}`} name={item.title} />
+        {schema ? <JsonLd data={schema} /> : null}
         <PropertyHero
           images={[item.hero]}
           alt={item.title}

@@ -35,8 +35,10 @@ import { PropertyHero } from "@/components/property/PropertyHero";
 import { RoomDetailBody } from "@/components/property/RoomDetail";
 import { AwardsRow } from "@/components/property/AwardsRow";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getPropertySite, getRoom, getRooms, getSiteLabels } from "@/sanity/lib/content";
 import { resolveDocumentMetadata } from "@/sanity/lib/metadata";
+import { roomSchema } from "@/sanity/lib/pageSchema";
 
 type Params = { room: string[] };
 
@@ -85,6 +87,7 @@ export default async function UbudRoomDetailPage({
       <PropertyHeader site={site} activeHref="/ubud/villa" />
       <main>
         <BreadcrumbJsonLd path={`/ubud/villa/${room.slug}`} name={room.title} />
+        <JsonLd data={roomSchema(room)} />
         <PropertyHero
           images={[room.hero]}
           alt={room.title}
